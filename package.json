@@ -11,10 +11,7 @@
   "dependencies": {
     "@prisma/client": "^6.15.0",
     "next": "15.5.2",
-<<<<<<< HEAD
     "prisma": "^6.15.0",
-=======
->>>>>>> fc8e01e4f549181fb8876aee0e97f6df8254a58a
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
@@ -23,10 +20,7 @@
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
-<<<<<<< HEAD
-=======
     "prisma": "^6.15.0",
->>>>>>> fc8e01e4f549181fb8876aee0e97f6df8254a58a
     "tailwindcss": "^4"
   }
 }
