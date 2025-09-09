@@ -14,9 +14,9 @@ export default function EventCard({ event }) {
         }}
       >
         <h3 style={{ margin: 0 }}>{event.title}</h3>
-        <link className="btn" href={`/events/${event.id}`}>
-          Detail
-        </link>
+        <Link href={`/events/${event.id}`}>
+          <span className="btn">Detail</span>
+        </Link>
       </div>
       <div className="small" style={{ marginTop: 4 }}>
         Kuota: {current}/{event.maxParticipants}{" "}
