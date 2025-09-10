@@ -1,5 +1,5 @@
 import "../../styles/global.css";
-import Navbar from "../../components/Navbar";
+import ClientLayout from "./ClientLayout";
 
 export const metadata = { title: "Workmate for Today" };
 
@@ -7,8 +7,7 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <Navbar />
-        <div className="container">{children}</div>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

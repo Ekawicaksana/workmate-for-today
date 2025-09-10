@@ -29,7 +29,7 @@ export default function Login() {
         <button type="submit">Login</button>
       </form>
 
-      <button onClick={() => signIn("google", { callbackUrl: "/" })}>
+      <button onClick={() => signIn("google", { callbackUrl: "/dashboard" })}>
         Login with Google
       </button>
     </>

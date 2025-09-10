@@ -1,125 +1,99 @@
+// src/app/events/new/page.js
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function newEventPage() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [form, setform] = useState({
-    title: "Ngantor di Kafe",
+export default function CreateEventPage() {
+  const [form, setForm] = useState({
+    title: "",
     date: "",
-    durationMinutes: 120,
-    locationName: "",
-    locationAddress: "",
-    maxParticipants: 4,
-    desiredBackground: "",
+    duration: "",
+    location: "",
+    maxParticipants: "",
+    preferredBackground: "",
   });
 
-  const submit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const res = await fetch("/api/events", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const out = await res.json();
-    setLoading(false);
-    if (res.ok) router.push(`/events/${out.id}`);
-    else alert(out.error || "Gagal menyimpan");
+  const router = useRouter();
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const set = (k) => (e) => setform({ ...form, [k]: e.target.value });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch("/api/events", {
+      method: "POST",
+      body: JSON.stringify(form),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (res.ok) {
+      router.push("/dashboard"); // redirect setelah submit
+    }
+  };
 
   return (
-    <div className="grid">
-      <div className="col-12">
-        <h2>Buat WFC/WFA</h2>
-      </div>
-      <div className="col-12">
-        <form className="card stack" onSubmit={submit}>
-          <div className="stack">
-            <label className="label">Judul</label>
-            <input
-              className="input"
-              value={form.title}
-              onChange={set("title")}
-              required
-            />
-          </div>
-          <div className="grid">
-            <div className="col-6 stack">
-              <label className="label">Tanggal & waktu</label>
-              <input
-                className="input"
-                type="datetime-local"
-                value={form.date}
-                onChange={set("date")}
-                required
-              />
-            </div>
-            <div className="col-6 stack">
-              <label className="label">Durasi (menit)</label>
-              <input
-                className="input"
-                type="number"
-                min="30"
-                step="15"
-                value={form.durationMinutes}
-                onChange={set("durationMinutes")}
-                required
-              />
-            </div>
-          </div>
-          <div className="grid">
-            <div className="col-6 stack">
-              <label className="label">Nama Lokasi</label>
-              <input
-                className="input"
-                value={form.locationName}
-                onChange={set("locationName")}
-                required
-              />
-            </div>
-            <div className="col-6 stack">
-              <label className="label">Alamat (opsional)</label>
-              <input
-                className="input"
-                value={form.locationAddress}
-                onChange={set("locationAddress")}
-              />
-            </div>
-          </div>
-          <div className="grid">
-            <div className="col-6 stack">
-              <label className="label">Maks. Partisipan</label>
-              <input
-                className="input"
-                type="number"
-                min="2"
-                max="50"
-                value={form.maxParticipants}
-                onChange={set("maxParticipants")}
-                required
-              />
-            </div>
-            <div className="col-6 stack">
-              <label className="label">Background diinginkan (opsional)</label>
-              <input
-                className="input"
-                placeholder="Developer, Designer, dsb."
-                value={form.desiredBackground}
-                onChange={set("desiredBackground")}
-              />
-            </div>
-          </div>
-          <div>
-            <button disabled={loading} className="btn" type="submit">
-              {loading ? "Menyimpan..." : "Publish Event"}
-            </button>
-          </div>
-        </form>
-      </div>
+    <div className="max-w-xl mx-auto mt-12">
+      <h1 className="text-2xl font-bold mb-6">Buat Aktivitas WFC/WFA</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          placeholder="Judul"
+          className="w-full border p-2 rounded"
+          required
+        />
+        <input
+          type="date"
+          name="date"
+          value={form.date}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          name="duration"
+          value={form.duration}
+          onChange={handleChange}
+          placeholder="Durasi (contoh: 3 jam)"
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="text"
+          name="location"
+          value={form.location}
+          onChange={handleChange}
+          placeholder="Lokasi (contoh: Kopi Kenangan SCBD)"
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="number"
+          name="maxParticipants"
+          value={form.maxParticipants}
+          onChange={handleChange}
+          placeholder="Jumlah Maksimal Partisipan"
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="text"
+          name="preferredBackground"
+          value={form.preferredBackground}
+          onChange={handleChange}
+          placeholder="Background Partisipan (opsional)"
+          className="w-full border p-2 rounded"
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Buat Aktivitas
+        </button>
+      </form>
     </div>
   );
 }

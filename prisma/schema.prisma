@@ -39,6 +39,8 @@ model Event {
   durationMinutes   Int
   locationName      String
   locationAddress   String?
+  latitude          Float
+  longitude         Float
   maxParticipants   Int
   desiredBackground String?
   createdAt         DateTime        @default(now())

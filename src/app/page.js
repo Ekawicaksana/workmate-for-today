@@ -16,7 +16,7 @@ export default async function Home() {
         <p>
           Umumkan WFC/WFA, ajak teman, dan bangun ritme kerja bareng komunitas.
         </p>
-        <Link className="btn" href="/events/new">
+        <Link className="btn" href="/login">
           + Buat WFC/WFA
         </Link>
       </section>

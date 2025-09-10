@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
-const handler = NextAuth({
+export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -43,6 +43,13 @@ const handler = NextAuth({
     signIn: "/login",
     error: "/login",
   },
-});
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return "/dashboard";
+    },
+  },
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
