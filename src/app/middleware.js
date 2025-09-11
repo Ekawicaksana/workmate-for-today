@@ -30,5 +30,5 @@ export async function middleware(request) {
 
 // ✅ Tentukan matcher agar middleware hanya aktif di path tertentu
 export const config = {
-  matcher: ["/dashboard/:path*", "/create/:path*"], // atau sesuaikan
+  matcher: ["/dashboard/:path*", "/create/:path*", "/api/event/join"], // atau sesuaikan
 };

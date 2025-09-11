@@ -21,7 +21,11 @@ function haversineDistance(lat1, lon1, lat2, lon2) {
 export async function POST(req) {
   const { latitude, longitude } = await req.json();
 
-  const events = await prisma.event.findMany();
+  const events = await prisma.event.findMany({
+    include: {
+      participants: true,
+    },
+  });
 
   const nearbyEvents = events
     .map((event) => {
@@ -31,9 +35,21 @@ export async function POST(req) {
         event.latitude,
         event.longitude
       );
-      return { ...event, distance };
+
+      const alreadyJoined = session
+        ? event.participants.some((p) => p.userId === session.user.id)
+        : false;
+
+      return {
+        id: event.id,
+        title: event.title,
+        location: event.locationName,
+        date: event.date,
+        distance,
+        alreadyJoined,
+      };
     })
-    .filter((event) => event.distance <= 50) // radius maksimal 50km
+    .filter((event) => event.distance <= 50)
     .sort((a, b) => a.distance - b.distance);
 
   return NextResponse.json(nearbyEvents);

@@ -1,4 +1,3 @@
-import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Stats from "./components/Stats";
 import NearbySessions from "./components/NearbySessions";
@@ -17,20 +16,10 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <main className="flex-1 p-8">
-        <Header name="Eka Wicaksana Putra" />
-        <div className="flex-1 p-6 bg-gray-100 overflow-auto">
-          <CreateButton />
-          <LocationButton />
-        </div>
-        <Stats />
-        <div>
-          <UserCalendar />
-          <NearbySessions />
-        </div>
-      </main>
+    <div>
+      <Stats />
+      <UserCalendar />
+      <NearbySessions />
     </div>
   );
 }

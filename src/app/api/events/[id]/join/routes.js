@@ -16,6 +16,14 @@ export async function POST(_req, { params }) {
         { status: 404 }
       );
 
+    const alreadyJoined = event.participants.some((p) => p.userId === user.id);
+    if (alreadyJoined) {
+      return NextResponse.json(
+        { error: "Anda sudah bergabung" },
+        { status: 400 }
+      );
+    }
+
     if (event.participants.length >= event.maxParticipants) {
       return NextResponse.json({ error: "Kuota penuh" }, { status: 400 });
     }

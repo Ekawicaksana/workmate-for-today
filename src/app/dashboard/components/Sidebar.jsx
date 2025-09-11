@@ -1,16 +1,27 @@
-export default function Sidebar() {
+"use client";
+
+import { signOut } from "next-auth/react";
+import Link from "next/link";
+
+export default function Sidebar({ className = "" }) {
   return (
-    <div className="w-1/5 h-full bg-white border-r p-4 flex flex-col justify-between">
+    <aside
+      className={`flex flex-col justify-between h-screen p-6 bg-blue-50 border-r-4 border-blue-300 ${className}`}
+    >
       <div>
-        <h1 className="text-xl font-bold mb-6">Workmate For Today</h1>
-        <ul className="space-y-3">
-          <li>Your Session</li>
-          <li>Group Chat</li>
-          <li>Session History</li>
-          <li>Profile</li>
-        </ul>
+        <nav className="flex flex-col space-y-4 text-gray-700">
+          <Link href="/dashboard/session">Your Session</Link>
+          <Link href="/dashboard/group-chat">Group Chat</Link>
+          <Link href="/dashboard/history">Session History</Link>
+          <Link href="/dashboard/profile">Profile</Link>
+        </nav>
       </div>
-      <button className="mt-4 border p-2 rounded">Log Out</button>
-    </div>
+      <button
+        onClick={() => signOut({ callbackUrl: "/login" })}
+        className="mt-10 border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 text-sm"
+      >
+        Log Out
+      </button>
+    </aside>
   );
 }
